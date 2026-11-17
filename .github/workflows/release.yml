@@ -1,0 +1,31 @@
+# A release (made on GitHub's site, or a pushed tag like v1.0.0) gets the
+# plugins attached: language_variants.zip, genre_tidy.py, only_these_tags.py.
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build
+        run: |
+          python build.py
+          cp genre_tidy.py only_these_tags.py dist/
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files="dist/language_variants.zip dist/genre_tidy.py dist/only_these_tags.py"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" $files --clobber
+          else
+            pre=""; case "$GITHUB_REF_NAME" in *-*) pre="--prerelease";; esac
+            gh release create "$GITHUB_REF_NAME" $files --title "Picard plugins ${GITHUB_REF_NAME#v}" --generate-notes $pre
+          fi

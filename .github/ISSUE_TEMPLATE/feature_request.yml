@@ -1,0 +1,32 @@
+name: Feature request
+description: Something a plugin could do, or do better
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin
+      options:
+        - Language Variants
+        - Genre Tidy
+        - Only These Tags
+        - A new plugin
+    validations:
+      required: true
+  - type: textarea
+    id: want
+    attributes:
+      label: What you'd like
+      description: What it should do. Example tags or releases help.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: What it's for, or what's awkward now.
+  - type: textarea
+    id: other
+    attributes:
+      label: Anything else
+      description: Other ways you've tried, or how another tool does it.

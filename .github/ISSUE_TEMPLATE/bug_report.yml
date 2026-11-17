@@ -1,0 +1,68 @@
+name: Bug report
+description: A plugin does something wrong, or doesn't work at all
+labels: [bug]
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin
+      options:
+        - Language Variants
+        - Genre Tidy
+        - Only These Tags
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What went wrong, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: release
+    attributes:
+      label: MusicBrainz release
+      description: Link to the release it happened with, if it's about one.
+      placeholder: https://musicbrainz.org/release/...
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: How to make it happen again.
+      placeholder: |
+        1. Load the release
+        2. Save
+        3. TITLE_EN is empty
+  - type: textarea
+    id: tags
+    attributes:
+      label: Tags
+      description: The tags you got, and the ones you expected (Picard's lower pane, or a screenshot).
+  - type: textarea
+    id: settings
+    attributes:
+      label: Plugin settings
+      description: The plugin's settings that matter here (Options → Plugins → the plugin).
+  - type: input
+    id: picard
+    attributes:
+      label: Picard version
+      description: Help → About.
+      placeholder: "2.13.3"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      description: Shown in Options → Plugins.
+      placeholder: "1.5"
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: Help → View Error/Debug Log. Paste the lines around the problem.
+      render: text
